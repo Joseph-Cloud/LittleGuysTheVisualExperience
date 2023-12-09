@@ -14,19 +14,28 @@ var INITIAL_GUYS = 20
 var little_guys: Array[Node] = []
 
 func _ready():
-
 	little_guys = []
 	print(Global.DEBUG)
 
 func _process(delta):
 	if Global.DEBUG:
 		_check_for_debug_inputs()
+		
+	_check_for_inputs()
+	
+func _check_for_inputs():
+	if Input.is_action_just_pressed("pause_guys"):
+		pause_guys()
 
 func _check_for_debug_inputs():
 	if Input.is_action_pressed("debug_add_little_guy"):
 		add_guys_to_scene(get_parent(), 1)
 	elif Input.is_action_just_pressed("debug_kill_little_guy"):
 		remove_most_recent_guy_from_scene()
+		
+func pause_guys():
+	for little_guy in little_guys:
+		print(little_guy.get_child(0).name)
 
 func remove_most_recent_guy_from_scene():
 	var guy_to_remove: Node = little_guys[-1]
