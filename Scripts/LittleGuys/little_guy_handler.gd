@@ -12,7 +12,7 @@ var total_guys
 func _ready():
 	total_guys = 0
 	print(Global.DEBUG)
-	
+
 func add_guys_to_scene(node, num_guys=0):
 	for x in range(num_guys):
 		var little_guy = little_guy_scene.instantiate()

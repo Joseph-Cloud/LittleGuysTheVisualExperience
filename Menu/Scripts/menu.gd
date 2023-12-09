@@ -1,7 +1,5 @@
 extends Node
 
-
-#used to call 
 func _on_play_pressed():
 	get_tree().change_scene_to_file("res://Levels/test_level.tscn")
 	print("Loading test_level.tscn")

@@ -13,11 +13,17 @@ config_version=5
 config/name="Little Guys the Visual Experience"
 run/main_scene="res://Menu/Scenes/Main_menu.tscn"
 config/features=PackedStringArray("4.1", "Forward Plus")
+boot_splash/image="res://splash.png"
 config/icon="res://icon.svg"
 
 [autoload]
 
 Global="*res://global.gd"
+
+[display]
+
+window/ios/hide_status_bar=false
+mouse_cursor/custom_image="res://cursor.png"
 
 [dotnet]
 

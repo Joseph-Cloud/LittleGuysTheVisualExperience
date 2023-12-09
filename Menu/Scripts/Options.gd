@@ -14,3 +14,7 @@ func _process(delta):
 func _on_back_pressed():
 	get_tree().change_scene_to_file("res://Menu/Scenes/Main_menu.tscn")
 	print("Loading Menu")
+
+func _unhandled_input(event: InputEvent) -> void:
+	print("unhandled input read at menu root node")
+	AudioBusLayout
