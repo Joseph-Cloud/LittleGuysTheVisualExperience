@@ -1,6 +1,21 @@
-[gd_scene load_steps=2 format=3 uid="uid://2ppn6avdljax"]
+[gd_scene load_steps=4 format=3 uid="uid://2ppn6avdljax"]
 
 [ext_resource type="Script" path="res://Scripts/LittleGuys/little_guy.gd" id="1_5kbmd"]
+[ext_resource type="Texture2D" uid="uid://begkjxwllkt56" path="res://black_circle.png" id="2_kxn21"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ow05s"]
+radius = 33.0
 
 [node name="LittleGuy" type="Node2D"]
+
+[node name="CharacterBody2D" type="CharacterBody2D" parent="."]
+motion_mode = 1
 script = ExtResource("1_5kbmd")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
+position = Vector2(0, 0.5)
+shape = SubResource("CircleShape2D_ow05s")
+
+[node name="Sprite2D" type="Sprite2D" parent="CharacterBody2D"]
+position = Vector2(-1, 0.5)
+texture = ExtResource("2_kxn21")
