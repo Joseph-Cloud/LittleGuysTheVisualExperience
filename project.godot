@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Little Guys the Visual Experience"
-run/main_scene="res://Levels/test_level.tscn"
+run/main_scene="res://Menu/Scenes/Main_menu.tscn"
 config/features=PackedStringArray("4.1", "Forward Plus")
 config/icon="res://icon.svg"
 
