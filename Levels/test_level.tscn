@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://de54p4xke0n5l"]
+
+[ext_resource type="PackedScene" uid="uid://sg8o6c6pi48e" path="res://LittleGuys/little_guy_handler.tscn" id="1_u4ncu"]
+
+[node name="TestLevel" type="Node2D"]
+
+[node name="LittleGuyHandler" parent="." instance=ExtResource("1_u4ncu")]
+position = Vector2(96, 116)
