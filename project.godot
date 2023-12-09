@@ -15,6 +15,10 @@ run/main_scene="res://Menu/Scenes/Main_menu.tscn"
 config/features=PackedStringArray("4.1", "Forward Plus")
 config/icon="res://icon.svg"
 
+[autoload]
+
+Global="*res://global.gd"
+
 [dotnet]
 
 project/assembly_name="Little Guys the Visual Experience"
