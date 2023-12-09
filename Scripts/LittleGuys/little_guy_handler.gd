@@ -23,7 +23,7 @@ func _process(delta):
 		_check_for_debug_inputs()
 
 func _check_for_debug_inputs():
-	if Input.is_action_just_pressed("debug_add_little_guy"):
+	if Input.is_action_pressed("debug_add_little_guy"):
 		add_guys_to_scene(get_parent(), 1)
 	elif Input.is_action_just_pressed("debug_kill_little_guy"):
 		remove_most_recent_guy_from_scene()
@@ -48,7 +48,7 @@ func add_guys_to_scene(node: Node, num_guys=0):
 
 func _on_timer_timeout():
 	if len(little_guys) < INITIAL_GUYS:
-		var little_guy = add_guys_to_scene(get_parent(), 1)
+		add_guys_to_scene(get_parent(), 1)
 	else:
 		$Timer.stop()
 
