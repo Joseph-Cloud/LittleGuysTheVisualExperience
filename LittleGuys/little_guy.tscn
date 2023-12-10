@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://dlsnq7oiihtyl" path="res://Assets/lilguy.png" id="2_ogoun"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ow05s"]
-radius = 33.0
+radius = 33.0038
 
 [node name="LittleGuy" type="CharacterBody2D"]
 input_pickable = true
@@ -24,4 +24,6 @@ texture = ExtResource("2_ogoun")
 wait_time = 1.6
 
 [connection signal="input_event" from="." to="." method="_on_input_event"]
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]
 [connection signal="timeout" from="ShotTimer" to="." method="_on_shot_timer_timeout"]
