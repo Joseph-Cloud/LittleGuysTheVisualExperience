@@ -1,8 +1,16 @@
-[gd_scene load_steps=2 format=3 uid="uid://de54p4xke0n5l"]
+[gd_scene load_steps=4 format=3 uid="uid://de54p4xke0n5l"]
 
 [ext_resource type="PackedScene" uid="uid://sg8o6c6pi48e" path="res://LittleGuys/little_guy_handler.tscn" id="1_u4ncu"]
+[ext_resource type="PackedScene" uid="uid://2vrhhm6tycib" path="res://Hazards/env_hazards_scene.tscn" id="2_2pq50"]
+[ext_resource type="PackedScene" uid="uid://2ppn6avdljax" path="res://LittleGuys/little_guy.tscn" id="2_b6hhc"]
 
 [node name="TestLevel" type="Node2D"]
 
 [node name="LittleGuyHandler" parent="." instance=ExtResource("1_u4ncu")]
 position = Vector2(96, 116)
+
+[node name="LittleGuy" parent="LittleGuyHandler" groups=["LittleGuy"] instance=ExtResource("2_b6hhc")]
+
+[node name="Hazards" parent="." instance=ExtResource("2_2pq50")]
+
+[connection signal="body_entered" from="Hazards" to="LittleGuyHandler" method="_on_hazards_body_entered"]
