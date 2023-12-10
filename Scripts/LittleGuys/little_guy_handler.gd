@@ -53,9 +53,6 @@ func remove_most_recent_guy_from_scene():
 func remove_guy_by_id(idx: int):
 	var parent: Node = get_parent()
 	parent.remove_child(parent.get_child(idx))
-	
-func _on_kill_guy_by_id(little_guy_id):
-	remove_guy_by_id(little_guy_id)
 
 func _on_hazards_body_entered(body):
 	if body.is_in_group("LittleGuy"):
