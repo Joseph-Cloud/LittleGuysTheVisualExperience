@@ -8,8 +8,6 @@ extends Node2D
 # Note(stejeda): This may or may not work
 signal kill_guy_by_id(little_guy_id)
 
-@export var SOFT_BODY_CALCULATIONS = false
-
 @onready var little_guy_scene = preload("res://LittleGuys/little_guy.tscn")
 var INITIAL_GUYS = 20
 	# Note(stejeda): We need this assignment or the timer function will explode I think
@@ -19,7 +17,7 @@ var spring_list: Array[Dictionary] = []
 var curr_leader_idx = -1
 
 func _ready():
-	if SOFT_BODY_CALCULATIONS:
+	if Global.SOFT_BODY_CONTROL:
 		add_guys_to_scene(self, INITIAL_GUYS)
 		reconstitue_soft_body()
 	print(Global.DEBUG)
@@ -27,11 +25,11 @@ func _ready():
 func _process(delta):
 	if Global.DEBUG:
 		_check_for_debug_inputs()
-		if SOFT_BODY_CALCULATIONS:
+		if Global.SOFT_BODY_CONTROL:
 			queue_redraw()
 		
 func _draw():
-	if Global.DEBUG and SOFT_BODY_CALCULATIONS:
+	if Global.DEBUG and Global.SOFT_BODY_CONTROL:
 		for spring in spring_list:
 			if not spring_is_valid(spring):
 				continue
@@ -59,7 +57,7 @@ func _on_hazards_body_entered(body):
 		body.queue_free()
 
 func _physics_process(delta):
-	if not SOFT_BODY_CALCULATIONS:
+	if not Global.SOFT_BODY_CONTROL:
 		return
 	update_spring_forces()
 	cull_little_guys_list()
@@ -78,7 +76,7 @@ func add_guys_to_scene(node, num_guys=0):
 		little_guy.add_to_group("LittleGuy")
 		little_guys.append(little_guy)
 
-	if SOFT_BODY_CALCULATIONS:
+	if Global.SOFT_BODY_CONTROL:
 		reconstitue_soft_body()
 
 func _on_timer_timeout():

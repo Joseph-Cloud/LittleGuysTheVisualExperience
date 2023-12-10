@@ -4,8 +4,6 @@ Scripts for individual 'LittleGuy' entities
 
 extends CharacterBody2D
 
-@export var SOFT_BODY_CONTROL = false
-
 # mass point vars for soft body
 @export var mass = 3
 var spring_force = Vector2.ZERO
@@ -61,7 +59,7 @@ func _physics_process(_delta):
 	
 	# Move towards the mouse position while MOVING
 	if status == MOVING:
-		if SOFT_BODY_CONTROL:
+		if Global.SOFT_BODY_CONTROL:
 			var distance = mouse_position.distance_to(position)
 			var curr_speed = moving_speed / (move_degrade_dist / distance)
 			var seek_force = (mouse_position - position).normalized() * curr_speed
