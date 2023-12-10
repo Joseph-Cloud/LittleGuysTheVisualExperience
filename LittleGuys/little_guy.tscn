@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://2ppn6avdljax"]
 
 [ext_resource type="Script" path="res://Scripts/LittleGuys/little_guy.gd" id="1_5kbmd"]
-[ext_resource type="Texture2D" uid="uid://begkjxwllkt56" path="res://black_circle.png" id="2_kxn21"]
+[ext_resource type="Texture2D" uid="uid://dlsnq7oiihtyl" path="res://Assets/lilguy.png" id="2_ogoun"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ow05s"]
 radius = 33.0
@@ -16,4 +16,5 @@ shape = SubResource("CircleShape2D_ow05s")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(-1, 0.5)
-texture = ExtResource("2_kxn21")
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("2_ogoun")
