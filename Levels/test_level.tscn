@@ -3,7 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://sg8o6c6pi48e" path="res://LittleGuys/little_guy_handler.tscn" id="1_u4ncu"]
 [ext_resource type="Script" path="res://Menu/Scripts/Level_manager.gd" id="1_xt4uj"]
 [ext_resource type="PackedScene" uid="uid://2vrhhm6tycib" path="res://Hazards/env_hazards_scene.tscn" id="2_2pq50"]
-[ext_resource type="PackedScene" path="res://Menu/Scenes/pausemenu.tscn" id="2_ra6uc"]
+[ext_resource type="PackedScene" uid="uid://dy8sxdv206lc0" path="res://Menu/Scenes/pausemenu.tscn" id="2_ra6uc"]
 
 [node name="TestLevel" type="Node2D"]
 script = ExtResource("1_xt4uj")
