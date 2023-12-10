@@ -71,7 +71,6 @@ func _physics_process(delta):
 		if not is_instance_valid(guy):
 			little_guys.erase(guy)
 			continue
-		#guy.physics_move(delta)
 		
 	
 func add_guys_to_scene(node, num_guys=0):
@@ -89,15 +88,6 @@ func add_guys_to_scene(node, num_guys=0):
 
 func _on_timer_timeout():
 	pass
-	#little_guys[curr_leader_idx].is_leader = false
-	#var new_leader = randi_range(0, len(little_guys) - 1)
-	#little_guys[new_leader].is_leader = true
-	#curr_leader_idx = new_leader
-	#reconstitue_soft_body()
-	#if len(little_guys) < INITIAL_GUYS:
-	#	var little_guy = add_guys_to_scene(get_parent(), 1)
-	#else:
-	#	$Timer.stop()		
 
 func create_spring_dict(guy_one, guy_two, rest_length, stiffness):
 	return {
@@ -129,12 +119,10 @@ func reconstitue_soft_body():
 	cull_little_guys_list()
 	var n = len(little_guys)
 	for i in range(len(little_guys) - 1):
-		#little_guys[i].is_leader = false
 		var link_spring = create_spring_dict(little_guys[i], little_guys[(i + 1)], 175, 5)
 		var leader_spring = create_spring_dict(little_guys[i], little_guys[(i + 2) % n], 175, 5)
 		spring_list.append(link_spring)
 		spring_list.append(leader_spring)
-	#little_guys[-1].is_leader = true
 	curr_leader_idx = -1
 	
 		
@@ -147,4 +135,6 @@ func cull_little_guys_list():
 		i += 1
 
 func spring_is_valid(spring):
-	return is_instance_valid(spring["mass_point_one"]) and is_instance_valid(spring["mass_point_two"])
+	var instance_valid = is_instance_valid(spring["mass_point_one"]) and is_instance_valid(spring["mass_point_two"])
+	var instance_in_body = spring["mass_point_one"].status != 2 and spring["mass_point_two"].status != 2
+	return instance_valid and instance_in_body
