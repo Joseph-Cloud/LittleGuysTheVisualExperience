@@ -7,9 +7,12 @@ extends Node2D
 
 # Note(stejeda): This may or may not work
 signal kill_guy_by_id(little_guy_id)
+signal pause_toggled
 
 @onready var little_guy_scene = preload("res://LittleGuys/little_guy.tscn")
-var INITIAL_GUYS = 20
+
+
+var INITIAL_GUYS = 3
 	# Note(stejeda): We need this assignment or the timer function will explode I think
 var little_guys: Array[Node] = []
 
@@ -22,20 +25,29 @@ func _process(delta):
 		_check_for_debug_inputs()
 		
 	_check_for_inputs()
-	
-func _check_for_inputs():
-	if Input.is_action_just_pressed("pause_guys"):
-		pause_guys()
 
 func _check_for_debug_inputs():
-	if Input.is_action_pressed("debug_add_little_guy"):
+	if Input.is_action_just_pressed("debug_add_little_guy"):
 		add_guys_to_scene(get_parent(), 1)
 	elif Input.is_action_just_pressed("debug_kill_little_guy"):
 		remove_most_recent_guy_from_scene()
-		
+
+func _check_for_inputs():
+	if Input.is_action_just_pressed("pause_guys"):
+		pause_guys()
+	if Input.is_action_just_pressed("throw_guys") and is_paused():
+		throw_guys()
+
+func is_paused():
+	return len(little_guys) > 0 and little_guys[0].paused
+
+func throw_guys():
+	little_guys[-1].throw(get_viewport().get_mouse_position())
+	
+
 func pause_guys():
 	for little_guy in little_guys:
-		print(little_guy.get_child(0).name)
+		little_guy.toggle_pause()
 
 func remove_most_recent_guy_from_scene():
 	var guy_to_remove: Node = little_guys[-1]
@@ -47,6 +59,9 @@ func remove_most_recent_guy_from_scene():
 func remove_guy_by_id(idx: int):
 	var parent: Node = get_parent()
 	parent.remove_child(parent.get_child(idx))
+
+func _on_been_thrown():
+	print("I am confused")
 
 func add_guys_to_scene(node: Node, num_guys=0):
 	for x in range(num_guys):
