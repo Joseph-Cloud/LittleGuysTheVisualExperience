@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://bg8u8vep831qn"]
+[gd_scene load_steps=3 format=3 uid="uid://bg8u8vep831qn"]
 
 [ext_resource type="Script" path="res://Menu/Scripts/menu.gd" id="1_tkqxq"]
+[ext_resource type="AudioStream" uid="uid://smwxgopiesli" path="res://Assets/Sounds/sfx-dong1.wav" id="2_pchir"]
 
 [node name="Menu" type="Control"]
 layout_mode = 3
@@ -10,6 +11,9 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_tkqxq")
+
+[node name="menu_sounds" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_pchir")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 layout_mode = 0
