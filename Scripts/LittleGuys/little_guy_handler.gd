@@ -11,7 +11,7 @@ signal kill_guy_by_id(little_guy_id)
 @export var SOFT_BODY_CALCULATIONS = false
 
 @onready var little_guy_scene = preload("res://LittleGuys/little_guy.tscn")
-var INITIAL_GUYS = 50
+var INITIAL_GUYS = 20
 	# Note(stejeda): We need this assignment or the timer function will explode I think
 var little_guys: Array[Node] = []
 var spring_list: Array[Dictionary] = []
@@ -19,8 +19,8 @@ var spring_list: Array[Dictionary] = []
 var curr_leader_idx = -1
 
 func _ready():
-	add_guys_to_scene(self, INITIAL_GUYS)
 	if SOFT_BODY_CALCULATIONS:
+		add_guys_to_scene(self, INITIAL_GUYS)
 		reconstitue_soft_body()
 	print(Global.DEBUG)
 
@@ -39,7 +39,7 @@ func _draw():
 		
 func _check_for_debug_inputs():
 	if Input.is_action_just_pressed("debug_add_little_guy"):
-		add_guys_to_scene(self, 1)
+		add_guys_to_scene(get_parent(), 1)
 	elif Input.is_action_just_pressed("debug_kill_little_guy"):
 		remove_most_recent_guy_from_scene()
 	
@@ -74,20 +74,21 @@ func _physics_process(delta):
 		
 	
 func add_guys_to_scene(node, num_guys=0):
-	var angle_increment = 2 * PI / num_guys
 	for x in range(num_guys):
 		var little_guy: Node = little_guy_scene.instantiate()
-		var angle = x * angle_increment
-		little_guy.position.x = position.x + num_guys * 10 * cos(angle)
-		little_guy.position.y = position.y + num_guys * 10 * sin(angle)
+		little_guy.position = position
 		node.add_child(little_guy)
 		little_guy.add_to_group("LittleGuy")
 		little_guys.append(little_guy)
+
 	if SOFT_BODY_CALCULATIONS:
 		reconstitue_soft_body()
 
 func _on_timer_timeout():
-	pass
+	if len(little_guys) < INITIAL_GUYS:
+		add_guys_to_scene(get_parent(), 1)
+	else:
+		$Timer.stop()
 
 func create_spring_dict(guy_one, guy_two, rest_length, stiffness):
 	return {
@@ -135,6 +136,8 @@ func cull_little_guys_list():
 		i += 1
 
 func spring_is_valid(spring):
-	var instance_valid = is_instance_valid(spring["mass_point_one"]) and is_instance_valid(spring["mass_point_two"])
-	var instance_in_body = spring["mass_point_one"].status != 2 and spring["mass_point_two"].status != 2
-	return instance_valid and instance_in_body
+	if not is_instance_valid(spring["mass_point_one"]) or not is_instance_valid(spring["mass_point_two"]):
+		return false
+	if spring["mass_point_one"].status == 2 and spring["mass_point_two"].status == 2:
+		return false
+	return true
