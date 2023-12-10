@@ -9,7 +9,6 @@
 script = ExtResource("1_xt4uj")
 
 [node name="LittleGuyHandler" parent="." instance=ExtResource("1_u4ncu")]
-SOFT_BODY_CALCULATIONS = false
 
 [node name="Hazards" parent="." instance=ExtResource("2_2pq50")]
 position = Vector2(1400, 436)
