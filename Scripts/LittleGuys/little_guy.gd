@@ -5,7 +5,7 @@ Scripts for individual 'LittleGuy' entities
 extends CharacterBody2D
 
 @export var seek_speed = 200
-@export var seek_degrade_dist = 500
+@export var seek_degrade_dist = 400
 
 # mass point vars for soft body
 @export var mass = 1

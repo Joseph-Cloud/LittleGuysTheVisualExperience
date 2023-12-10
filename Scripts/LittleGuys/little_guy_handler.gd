@@ -73,8 +73,8 @@ func construct_soft_body(n):
 	await add_guys_to_scene(self, n)
 	#little_guys.back().is_leader = true
 	for i in range(n):
-		spring_list.append(create_spring_dict(little_guys[i], little_guys[(i + 1) % (n - 1)], 1))
-		spring_list.append(create_spring_dict(little_guys[i], little_guys[(i + 2) % (n - 1)], 1))
+		spring_list.append(create_spring_dict(little_guys[i], little_guys[(i + 1) % (n - 1)], 2))
+		spring_list.append(create_spring_dict(little_guys[i], little_guys[(i + 2) % (n - 1)], 2))
 		
 
 func create_spring_dict(guy_one, guy_two, stiffness):
