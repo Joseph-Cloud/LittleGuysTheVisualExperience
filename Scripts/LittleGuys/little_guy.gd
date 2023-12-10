@@ -4,12 +4,13 @@ Scripts for individual 'LittleGuy' entities
 
 extends CharacterBody2D
 
-@export var seek_speed = 200
-@export var seek_degrade_dist = 400
+@export var seek_speed = 600
+@export var seek_degrade_dist = 50
+var is_leader = false
 
 # mass point vars for soft body
 @export var mass = 1
-var spring_force
+var spring_force = Vector2.ZERO
 
 @onready var shot_timer = $ShotTimer
 @onready var sprite_2d = $Sprite2D
@@ -28,11 +29,14 @@ func physics_move(delta):
 	
 	# Move towards the mouse position while MOVING
 	if status == MOVING:
+		#var seek_force = Vector2.ZERO
+		#if is_leader:
 		var distance = mouse_position.distance_to(position)
-		var seek_force = (mouse_position - position).normalized() * seek_speed / (200 / distance)
-		var force = spring_force + seek_force
-		velocity = force / mass
+		var seek_force = (mouse_position - position).normalized() * seek_speed #/ (seek_degrade_dist / distance)
+		#else:
+		velocity = spring_force + seek_force
 		move_and_slide()
+		spring_force = Vector2.ZERO
 		
 	elif status == SHOOTING and not Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
 		velocity = -1 * (mouse_position - position).clamp(-max_shot_speed, max_shot_speed) * shot_speed

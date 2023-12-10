@@ -9,9 +9,9 @@
 script = ExtResource("1_xt4uj")
 
 [node name="LittleGuyHandler" parent="." instance=ExtResource("1_u4ncu")]
-position = Vector2(96, 116)
 
 [node name="Hazards" parent="." instance=ExtResource("2_2pq50")]
+position = Vector2(1400, 436)
 
 [node name="pausemenu" parent="." instance=ExtResource("2_ra6uc")]
 visible = false
