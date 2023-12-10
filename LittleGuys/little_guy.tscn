@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://2ppn6avdljax"]
 
 [ext_resource type="Script" path="res://Scripts/LittleGuys/little_guy.gd" id="1_5kbmd"]
-[ext_resource type="Texture2D" uid="uid://clgcjfyafy1hm" path="res://Assets/lilguy.png" id="2_ogoun"]
+[ext_resource type="Texture2D" uid="uid://dlsnq7oiihtyl" path="res://Assets/lilguy.png" id="2_ogoun"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ow05s"]
 radius = 33.0
