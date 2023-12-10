@@ -6,7 +6,7 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_ow05s"]
 radius = 33.0038
 
-[node name="LittleGuy" type="CharacterBody2D"]
+[node name="LittleGuy" type="CharacterBody2D" groups=["LittleGuys"]]
 input_pickable = true
 motion_mode = 1
 script = ExtResource("1_5kbmd")

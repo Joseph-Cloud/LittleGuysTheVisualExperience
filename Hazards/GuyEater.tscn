@@ -1,0 +1,72 @@
+[gd_scene load_steps=6 format=3 uid="uid://b0j7pgm447f2v"]
+
+[ext_resource type="Script" path="res://Hazards/GuyEater.gd" id="1_gr50w"]
+[ext_resource type="Texture2D" uid="uid://cjxtdxywg06y7" path="res://Assets/guyEater.png" id="2_1yqe7"]
+[ext_resource type="Texture2D" uid="uid://c88loj3ceccco" path="res://Assets/happyfrog.png" id="3_mmt8u"]
+[ext_resource type="Texture2D" uid="uid://cp14bcs64t44u" path="res://Assets/eaterSpeechBubble.png" id="3_yd0u1"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_t7ehx"]
+radius = 32.0
+height = 68.0
+
+[node name="GuyEater" type="Area2D"]
+script = ExtResource("1_gr50w")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -9)
+shape = SubResource("CapsuleShape2D_t7ehx")
+
+[node name="NormalFrogSprite" type="Sprite2D" parent="."]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_1yqe7")
+
+[node name="HappyFrogSprite" type="Sprite2D" parent="."]
+visible = false
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("3_mmt8u")
+
+[node name="SpeechBubbleSprite" type="Sprite2D" parent="."]
+position = Vector2(-79, -72)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("3_yd0u1")
+
+[node name="Feed me" type="Label" parent="SpeechBubbleSprite"]
+offset_left = -172.0
+offset_top = -38.0
+offset_right = -9.0
+offset_bottom = 20.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 40
+text = "Feed me"
+
+[node name="NUMOFGUYS" type="Label" parent="SpeechBubbleSprite"]
+offset_left = -50.0
+offset_top = -40.0
+offset_right = 113.0
+offset_bottom = 32.0
+theme_override_colors/font_color = Color(1, 0, 0, 1)
+theme_override_font_sizes/font_size = 50
+text = "15"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="guys!" type="Label" parent="SpeechBubbleSprite"]
+offset_left = 74.0
+offset_top = -32.0
+offset_right = 192.0
+offset_bottom = 26.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 40
+text = "guys!"
+
+[node name="win text" type="Label" parent="SpeechBubbleSprite"]
+visible = false
+offset_left = -162.0
+offset_top = -38.0
+offset_right = 224.0
+offset_bottom = 20.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 40
+text = "Thanks, I am full!"
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
