@@ -9,5 +9,4 @@ script = ExtResource("1_rgh83")
 wait_time = 0.1
 autostart = true
 
-[connection signal="kill_guy_by_id" from="." to="." method="_on_kill_guy_by_id"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

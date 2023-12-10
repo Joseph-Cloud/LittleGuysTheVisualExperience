@@ -4,15 +4,15 @@
 [ext_resource type="Script" path="res://Menu/Scripts/Level_manager.gd" id="1_xt4uj"]
 [ext_resource type="PackedScene" uid="uid://2vrhhm6tycib" path="res://Hazards/env_hazards_scene.tscn" id="2_2pq50"]
 [ext_resource type="PackedScene" uid="uid://dy8sxdv206lc0" path="res://Menu/Scenes/pausemenu.tscn" id="2_ra6uc"]
-[ext_resource type="PackedScene" uid="uid://lmyo4gyv8tdt" path="res://Hazards/Wall.tscn" id="5_gjr51"]
-[ext_resource type="PackedScene" uid="uid://842ow8kcemxm" path="res://Hazards/WallBorder.tscn" id="6_80ata"]
+[ext_resource type="PackedScene" path="res://Hazards/Wall.tscn" id="5_gjr51"]
+[ext_resource type="PackedScene" uid="uid://c8ruxuyig5t1q" path="res://Hazards/WallBorder.tscn" id="6_80ata"]
 [ext_resource type="PackedScene" path="res://Hazards/PushableBox.tscn" id="7_1csxa"]
 
 [node name="TestLevel" type="Node2D"]
 script = ExtResource("1_xt4uj")
 
 [node name="LittleGuyHandler" parent="." instance=ExtResource("1_u4ncu")]
-position = Vector2(96, 116)
+position = Vector2(126, 80)
 
 [node name="pausemenu" parent="." instance=ExtResource("2_ra6uc")]
 visible = false

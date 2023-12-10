@@ -4,10 +4,15 @@ Scripts for individual 'LittleGuy' entities
 
 extends CharacterBody2D
 
+# mass point vars for soft body
+@export var mass = 3
+var spring_force = Vector2.ZERO
+
 @onready var shot_timer = $ShotTimer
 @onready var sprite_2d = $Sprite2D
 
 @export var moving_speed = 250
+@export var move_degrade_dist = 100
 @export var shot_speed_multiplier = 3
 @export var max_shot_distance = Vector2(500,500)
 
@@ -54,7 +59,15 @@ func _physics_process(_delta):
 	
 	# Move towards the mouse position while MOVING
 	if status == MOVING:
-		velocity = ( mouse_position - position ).normalized() * moving_speed
+		if Global.SOFT_BODY_CONTROL:
+			var distance = mouse_position.distance_to(position)
+			var curr_speed = moving_speed / (move_degrade_dist / distance)
+			var seek_force = (mouse_position - position).normalized() * curr_speed
+			
+			velocity = spring_force / mass + seek_force
+			spring_force = Vector2.ZERO	
+		else: 
+			velocity = (mouse_position - position).normalized() * moving_speed
 		
 	# Release left mouse while AIMING to fire a SHOT
 	elif status == AIMING and not Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
