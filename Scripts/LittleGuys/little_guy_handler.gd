@@ -6,7 +6,7 @@ NOTE: if what you're doing concerns a singular 'LittleGuy' put it in the little_
 extends Node2D
 
 @onready var little_guy_scene = preload("res://LittleGuys/little_guy.tscn")
-var INITIAL_GUYS = 20
+var INITIAL_GUYS = 100
 var total_guys
 var little_guys = []
 var spring_list = []
@@ -17,18 +17,39 @@ func _ready():
 	total_guys = 0
 	construct_soft_body(INITIAL_GUYS)
 	print(Global.DEBUG)
+
+func _process(delta):
+	if Global.DEBUG:
+		_check_for_debug_inputs()
+		
+func _check_for_debug_inputs():
+	if Input.is_action_pressed("debug_add_little_guy"):
+		add_guys_to_scene(get_parent(), 1)
+	elif Input.is_action_just_pressed("debug_kill_little_guy"):
+		remove_most_recent_guy_from_scene()
 	
+func remove_most_recent_guy_from_scene():
+	var guy_to_remove: Node = little_guys[-1]
+	var parent: Node = get_parent()
+	if guy_to_remove != null:
+		var idx = guy_to_remove.get_index()
+		parent.remove_child(parent.get_child(idx))
+
+func remove_guy_by_id(idx: int):
+	var parent: Node = get_parent()
+	parent.remove_child(parent.get_child(idx))
+	
+func _on_kill_guy_by_id(little_guy_id):
+	remove_guy_by_id(little_guy_id)
+
+func _on_hazards_body_entered(body):
+	if body.is_in_group("LittleGuy"):
+		body.queue_free()
+
 func _physics_process(delta):
 	update_spring_forces()
 	for guy in little_guys:
 		guy.physics_move(delta)
-	queue_redraw()
-	
-func _draw():
-	for spring in spring_list:
-		var pos_one = spring["mass_point_one"].position
-		var pos_two = spring["mass_point_two"].position
-		draw_line(spring["mass_point_one"].position, spring["mass_point_two"].position, Color(1, 1, 1), 5)
 	
 func add_guys_to_scene(node, num_guys=0):
 	var angle_increment = 2 * PI / num_guys
