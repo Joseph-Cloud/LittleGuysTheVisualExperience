@@ -8,13 +8,12 @@ size = Vector2(261, 264)
 [node name="Area2D" type="Area2D"]
 
 [node name="LavaCollision" type="CollisionShape2D" parent="."]
-position = Vector2(569, 303)
 shape = SubResource("RectangleShape2D_njftc")
 script = ExtResource("1_talhs")
 
 [node name="ColorRect" type="ColorRect" parent="."]
-offset_left = 439.0
-offset_top = 171.0
-offset_right = 700.0
-offset_bottom = 435.0
+offset_left = -130.0
+offset_top = -132.0
+offset_right = 131.0
+offset_bottom = 132.0
 color = Color(0.831373, 0.0235294, 0.356863, 0.431373)
