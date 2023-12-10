@@ -56,8 +56,6 @@ func _on_timer_timeout():
 func _on_kill_guy_by_id(little_guy_id):
 	remove_guy_by_id(little_guy_id)
 
-
-
 func _on_hazards_body_entered(body):
 	if body.is_in_group("LittleGuy"):
 		body.queue_free()
