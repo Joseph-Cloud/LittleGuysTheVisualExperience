@@ -12,16 +12,19 @@ grow_vertical = 2
 script = ExtResource("1_oxaw2")
 
 [node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 0
 offset_right = 1157.0
 offset_bottom = 653.0
 color = Color(0.0196078, 0.027451, 0.156863, 1)
 
 [node name="ColorRect" type="ColorRect" parent="ColorRect"]
+layout_mode = 0
 offset_right = 1157.0
 offset_bottom = 653.0
 color = Color(0.0196078, 0.027451, 0.156863, 1)
 
 [node name="VBoxContainer" type="VBoxContainer" parent="ColorRect"]
+layout_mode = 0
 offset_left = 414.0
 offset_top = 130.0
 offset_right = 735.0

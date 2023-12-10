@@ -1,3 +1,18 @@
-[gd_scene format=3 uid="uid://o30d5gbodc7r"]
+[gd_scene load_steps=4 format=3 uid="uid://o30d5gbodc7r"]
+
+[ext_resource type="Script" path="res://Scripts/LevelManager/level-manager.gd" id="1_5wea0"]
+[ext_resource type="PackedScene" uid="uid://clc3r2c65aig4" path="res://Levels/UI/pause-menu.tscn" id="2_eibbs"]
+[ext_resource type="PackedScene" uid="uid://sg8o6c6pi48e" path="res://LittleGuys/little_guy_handler.tscn" id="3_625xd"]
 
 [node name="Scene_1" type="Node2D"]
+script = ExtResource("1_5wea0")
+
+[node name="pause-menu" parent="." instance=ExtResource("2_eibbs")]
+visible = false
+offset_left = 2.0
+offset_top = 2.0
+offset_right = 2.0
+offset_bottom = 2.0
+
+[node name="LittleGuyHandler" parent="." instance=ExtResource("3_625xd")]
+position = Vector2(60, 80)

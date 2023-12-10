@@ -1,0 +1,55 @@
+[gd_scene load_steps=2 format=3 uid="uid://clc3r2c65aig4"]
+
+[ext_resource type="Script" path="res://Levels/UI/pause-script.gd" id="1_nbgj5"]
+
+[node name="pause-menu" type="Control"]
+top_level = true
+light_mask = 512
+visibility_layer = 512
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_nbgj5")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -161.0
+offset_top = -118.0
+offset_right = 161.0
+offset_bottom = 118.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Pause-text" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "Paused"
+horizontal_alignment = 1
+
+[node name="Home" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "Home"
+
+[node name="Options" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "Options"
+
+[node name="Close" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "Resume"
+
+[node name="Quit_button" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "Quit"
+
+[connection signal="pressed" from="VBoxContainer/Home" to="." method="_on_home_pressed"]
+[connection signal="pressed" from="VBoxContainer/Options" to="." method="_on_options_pressed"]
+[connection signal="button_up" from="VBoxContainer/Close" to="." method="_on_close_button_up"]
+[connection signal="button_up" from="VBoxContainer/Quit_button" to="." method="_on_quit_button_button_up"]
