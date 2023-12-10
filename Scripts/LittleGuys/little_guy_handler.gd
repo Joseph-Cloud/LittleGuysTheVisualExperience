@@ -44,6 +44,7 @@ func add_guys_to_scene(node: Node, num_guys=0):
 		var little_guy: Node = little_guy_scene.instantiate()
 		little_guy.position = position
 		node.add_child(little_guy)
+		little_guy.add_to_group("LittleGuy")
 		little_guys.append(little_guy)
 
 func _on_timer_timeout():
@@ -54,3 +55,7 @@ func _on_timer_timeout():
 
 func _on_kill_guy_by_id(little_guy_id):
 	remove_guy_by_id(little_guy_id)
+
+func _on_hazards_body_entered(body):
+	if body.is_in_group("LittleGuy"):
+		body.queue_free()
