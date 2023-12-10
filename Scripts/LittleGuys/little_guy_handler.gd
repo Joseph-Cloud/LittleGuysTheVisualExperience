@@ -37,16 +37,19 @@ func _draw():
 		
 func _check_for_debug_inputs():
 	if Input.is_action_just_pressed("debug_add_little_guy"):
-		add_guys_to_scene(get_parent(), 1)
+		add_guys_to_scene(self, 1)
 	elif Input.is_action_just_pressed("debug_kill_little_guy"):
 		remove_most_recent_guy_from_scene()
 	
 func remove_most_recent_guy_from_scene():
 	var guy_to_remove: Node = little_guys[-1]
-	var parent: Node = get_parent()
+	var parent: Node = self
 	if guy_to_remove != null:
 		var idx = guy_to_remove.get_index()
 		parent.remove_child(parent.get_child(idx))
+		guy_to_remove.queue_free()
+		if Global.SOFT_BODY_CONTROL:
+			reconstitue_soft_body()
 
 func remove_guy_by_id(idx: int):
 	var parent: Node = get_parent()
