@@ -4,9 +4,20 @@ Scripts for individual 'LittleGuy' entities
 
 extends CharacterBody2D
 
-@export var speed = 200
+@export var seek_speed = 500
 
-func _physics_process(delta):
+# mass point vars for soft body
+@export var mass = 1
+var spring_force
+
+func physics_move(delta):
 	var mouse_position = get_viewport().get_mouse_position()
-	velocity = ( mouse_position - position ).normalized() * speed
+	var seek_force = (mouse_position - position).normalized() * seek_speed
+	var force = spring_force + seek_force
+	velocity = force / mass
 	move_and_slide()
+	
+	# 	force = 0
+	#	force += spring_force
+	#	velocity += force / mass * delta
+	#	position += velocity * delta
