@@ -12,8 +12,8 @@ extends Area2D
 var num_guys_eaten = 0
 var full = false
 
-# Called when the node enters the scene tree for the first time.
 func _ready():
+	# Manage sprites / labels
 	win_text.hide()
 	normal_frog_sprite.show()
 	happy_frog_sprite.hide()
@@ -22,6 +22,7 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	# If we've just now eaten enough guys, win!
 	if num_guys_eaten >= num_guys_to_eat and full == false:
 		full = true
 		feed_me_label.hide()
@@ -34,7 +35,9 @@ func _process(delta):
 
 
 func _on_body_entered(body):
+	# If the body we collided with is a LittleGuys, eat him
 	if body.is_in_group("LittleGuys") and full == false:
 		num_guys_eaten += 1
 		body.queue_free()
+		# Update the label in the speech bubble
 		num_of_guys_label.text = str(num_guys_to_eat - num_guys_eaten)
