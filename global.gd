@@ -1,7 +1,7 @@
 extends Node
 
 var DEBUG = true
-var SOFT_BODY_CONTROL = true
+var SOFT_BODY_CONTROL = false
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.
