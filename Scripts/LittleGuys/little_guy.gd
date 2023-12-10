@@ -4,12 +4,14 @@ Scripts for individual 'LittleGuy' entities
 
 extends CharacterBody2D
 
-@export var seek_speed = 600
-@export var seek_degrade_dist = 50
-var is_leader = false
+@export var SOFT_BODY_CONTROL = false
+
+@export var seek_speed = 400
+@export var seek_degrade_dist = 100
+#var is_leader = false
 
 # mass point vars for soft body
-@export var mass = 1
+@export var mass = 3
 var spring_force = Vector2.ZERO
 
 @onready var shot_timer = $ShotTimer
@@ -17,24 +19,51 @@ var spring_force = Vector2.ZERO
 
 @export var speed = 200
 @export var shot_speed = 4
-@export var max_shot_speed = Vector2(500,500)
+@export var max_shot_speed = Vector2(500, 500)
 
 var animFrames = ["res://Assets/lilguy.png", "res://Assets/selectguy.png", "res://Assets/hotterguy.png"]
 
 enum {MOVING, SHOOTING, SHOT}
 var status = MOVING
 
+func _physics_process(delta):
+	var mouse_position = get_viewport().get_mouse_position()
+	
+	# Move towards the mouse position while MOVING
+	if status == MOVING:
+		if SOFT_BODY_CONTROL:
+			var distance = mouse_position.distance_to(position)
+			var curr_speed = seek_speed / (seek_degrade_dist / distance)
+			var seek_force = (mouse_position - position).normalized() * curr_speed
+			
+			velocity = spring_force / mass + seek_force
+			spring_force = Vector2.ZERO	
+		else: 
+			velocity = (mouse_position - position).normalized() * speed
+		move_and_slide()
+		
+	elif status == SHOOTING and not Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
+		velocity = -1 * (mouse_position - position).clamp(-max_shot_speed, max_shot_speed) * shot_speed
+		status = SHOT
+		sprite_2d.texture = load(animFrames[2])
+		shot_timer.start()
+		move_and_slide()
+	elif status == SHOT:
+		move_and_slide()
+
 func physics_move(delta):
 	var mouse_position = get_viewport().get_mouse_position()
 	
 	# Move towards the mouse position while MOVING
 	if status == MOVING:
-		#var seek_force = Vector2.ZERO
-		#if is_leader:
 		var distance = mouse_position.distance_to(position)
-		var seek_force = (mouse_position - position).normalized() * seek_speed #/ (seek_degrade_dist / distance)
-		#else:
-		velocity = spring_force + seek_force
+		var curr_speed = seek_speed / (seek_degrade_dist / distance)
+		var seek_force = (mouse_position - position).normalized() * curr_speed
+		
+		if SOFT_BODY_CONTROL:
+			velocity = spring_force / mass + seek_force
+		else: 
+			velocity = spring_force / mass + seek_force
 		move_and_slide()
 		spring_force = Vector2.ZERO
 		

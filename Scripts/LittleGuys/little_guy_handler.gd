@@ -8,26 +8,30 @@ extends Node2D
 # Note(stejeda): This may or may not work
 signal kill_guy_by_id(little_guy_id)
 
+@export var SOFT_BODY_CALCULATIONS = false
+
 @onready var little_guy_scene = preload("res://LittleGuys/little_guy.tscn")
-var INITIAL_GUYS = 10
+var INITIAL_GUYS = 50
 	# Note(stejeda): We need this assignment or the timer function will explode I think
 var little_guys: Array[Node] = []
 var spring_list: Array[Dictionary] = []
 
-var physics_ready = false
+var curr_leader_idx = -1
 
 func _ready():
 	add_guys_to_scene(self, INITIAL_GUYS)
-	reconstitue_soft_body()
+	if SOFT_BODY_CALCULATIONS:
+		reconstitue_soft_body()
 	print(Global.DEBUG)
 
 func _process(delta):
 	if Global.DEBUG:
 		_check_for_debug_inputs()
-		queue_redraw()
+		if SOFT_BODY_CALCULATIONS:
+			queue_redraw()
 		
 func _draw():
-	if Global.DEBUG:
+	if Global.DEBUG and SOFT_BODY_CALCULATIONS:
 		for spring in spring_list:
 			if not spring_is_valid(spring):
 				continue
@@ -58,15 +62,16 @@ func _on_hazards_body_entered(body):
 		body.queue_free()
 
 func _physics_process(delta):
+	if not SOFT_BODY_CALCULATIONS:
+		return
 	update_spring_forces()
 	cull_little_guys_list()
 	for i in range(len(little_guys)):
 		var guy = little_guys[i]
-		i += 1
 		if not is_instance_valid(guy):
 			little_guys.erase(guy)
 			continue
-		guy.physics_move(delta)
+		#guy.physics_move(delta)
 		
 	
 func add_guys_to_scene(node, num_guys=0):
@@ -79,11 +84,15 @@ func add_guys_to_scene(node, num_guys=0):
 		node.add_child(little_guy)
 		little_guy.add_to_group("LittleGuy")
 		little_guys.append(little_guy)
-	reconstitue_soft_body()
-	print(len(spring_list))
+	if SOFT_BODY_CALCULATIONS:
+		reconstitue_soft_body()
 
 func _on_timer_timeout():
 	pass
+	#little_guys[curr_leader_idx].is_leader = false
+	#var new_leader = randi_range(0, len(little_guys) - 1)
+	#little_guys[new_leader].is_leader = true
+	#curr_leader_idx = new_leader
 	#reconstitue_soft_body()
 	#if len(little_guys) < INITIAL_GUYS:
 	#	var little_guy = add_guys_to_scene(get_parent(), 1)
@@ -120,12 +129,14 @@ func reconstitue_soft_body():
 	cull_little_guys_list()
 	var n = len(little_guys)
 	for i in range(len(little_guys) - 1):
-		little_guys[i].is_leader = false
-		var link_spring = create_spring_dict(little_guys[i], little_guys[(i + 1)], 200, 5)
-		var leader_spring = create_spring_dict(little_guys[i], little_guys[(i + 2) % n], 200, 5)
+		#little_guys[i].is_leader = false
+		var link_spring = create_spring_dict(little_guys[i], little_guys[(i + 1)], 175, 5)
+		var leader_spring = create_spring_dict(little_guys[i], little_guys[(i + 2) % n], 175, 5)
 		spring_list.append(link_spring)
 		spring_list.append(leader_spring)
-	little_guys[-1].is_leader = true
+	#little_guys[-1].is_leader = true
+	curr_leader_idx = -1
+	
 		
 func cull_little_guys_list():
 	var i = 0
