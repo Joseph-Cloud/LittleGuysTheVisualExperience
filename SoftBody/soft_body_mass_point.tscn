@@ -1,0 +1,15 @@
+[gd_scene load_steps=4 format=3 uid="uid://dpsd0wvcuhjq2"]
+
+[ext_resource type="Script" path="res://Scripts/soft_body_mass_point.gd" id="1_lonnl"]
+[ext_resource type="Texture2D" uid="uid://begkjxwllkt56" path="res://black_circle.png" id="2_jr7nu"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_v8evm"]
+
+[node name="SoftBodyMassPoint" type="CharacterBody2D"]
+script = ExtResource("1_lonnl")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_v8evm")
+
+[node name="Sprite2D" type="Sprite2D" parent="CollisionShape2D"]
+texture = ExtResource("2_jr7nu")

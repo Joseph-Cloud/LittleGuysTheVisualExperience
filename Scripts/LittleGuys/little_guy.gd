@@ -53,7 +53,6 @@ func _process(_delta):
 			start_moving()
 	# z_index = position.y  # Sorts sprites by y value. Flickers and looks kinda strange.
 
-
 func _physics_process(_delta):
 	var mouse_position = get_viewport().get_mouse_position()
 	
@@ -65,7 +64,7 @@ func _physics_process(_delta):
 			var seek_force = (mouse_position - position).normalized() * curr_speed
 			
 			velocity = spring_force / mass + seek_force
-			spring_force = Vector2.ZERO	
+			spring_force = Vector2.ZERO
 		else: 
 			velocity = (mouse_position - position).normalized() * moving_speed
 		
