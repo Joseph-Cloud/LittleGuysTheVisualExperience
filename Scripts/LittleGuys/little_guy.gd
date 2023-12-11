@@ -10,15 +10,22 @@ var spring_force = Vector2.ZERO
 
 @onready var shot_timer = $ShotTimer
 @onready var sprite_2d = $Sprite2D
+@onready var aiming_reticle = $AimingReticle
 
 @export var moving_speed = 250
 @export var move_degrade_dist = 100
-@export var shot_speed_multiplier = 3
-@export var max_shot_distance = Vector2(500,500)
+@export var reticle_distance_multiplier = 1
+@export var shot_speed_multiplier = 2
+@export var max_shot_distance = Vector2(250,250)
 
 
 enum {MOVING, AIMING, SHOT, STOPPED}
 var status = MOVING
+var cursor_pos
+
+
+func _ready():
+	aiming_reticle.hide()
 
 
 func start_moving():
@@ -29,11 +36,13 @@ func start_moving():
 
 func start_aiming():
 	status = AIMING
-	sprite_2d.texture = load("res://Assets/purpleguy.png")
+	sprite_2d.texture = load("res://Assets/green_guy.png")
+	aiming_reticle.show()
 
 func get_shot():
 	status = SHOT
 	sprite_2d.texture = load("res://Assets/hotterguy.png")
+	aiming_reticle.hide()
 	shot_timer.start()
 	set_collision_mask_value(1, false)
 	set_collision_mask_value(2, true)
@@ -68,11 +77,17 @@ func _physics_process(_delta):
 			spring_force = Vector2.ZERO	
 		else: 
 			velocity = (mouse_position - position).normalized() * moving_speed
+	
+	# Hold left mouse button to be AIMING a shot!
+	elif status == AIMING:
+		if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
+			cursor_pos = -1 * (mouse_position - position).clamp(-max_shot_distance, max_shot_distance) * reticle_distance_multiplier
+			aiming_reticle.position = cursor_pos
 		
-	# Release left mouse while AIMING to fire a SHOT
-	elif status == AIMING and not Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
-		get_shot()  # This is the state change, the below actually makes it move
-		velocity = -1 * (mouse_position - position).clamp(-max_shot_distance, max_shot_distance) * shot_speed_multiplier
+		# Release left mouse while AIMING to fire a SHOT
+		elif not Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
+			get_shot()
+			velocity = -1 * (mouse_position - position).clamp(-max_shot_distance, max_shot_distance) * shot_speed_multiplier
 	
 	# Stop moving if AIMING / STOPPED
 	elif status == AIMING or status == STOPPED:
