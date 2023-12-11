@@ -48,8 +48,6 @@ text = "Level Select"
 layout_mode = 2
 text = "Quit"
 
-[connection signal="gui_input" from="VBoxContainer" to="." method="_on_v_box_container_gui_input"]
-[connection signal="button_up" from="VBoxContainer/Play" to="." method="_on_play_button_up"]
 [connection signal="pressed" from="VBoxContainer/Play" to="." method="_on_play_pressed"]
 [connection signal="pressed" from="VBoxContainer/Options" to="." method="_on_options_pressed"]
 [connection signal="pressed" from="VBoxContainer/Level Select" to="." method="_on_level_select_pressed"]
