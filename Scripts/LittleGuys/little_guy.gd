@@ -41,7 +41,7 @@ func start_aiming():
 
 func get_shot():
 	status = SHOT
-	sprite_2d.texture = load("res://Assets/hotterguy.png")
+	sprite_2d.texture = load("res://Assets/shotter_guy.png")
 	aiming_reticle.hide()
 	shot_timer.start()
 	set_collision_mask_value(1, false)
@@ -78,20 +78,20 @@ func _physics_process(_delta):
 		else: 
 			velocity = (mouse_position - position).normalized() * moving_speed
 	
+	elif status == STOPPED:
+		velocity = Vector2.ZERO
+	
 	# Hold left mouse button to be AIMING a shot!
 	elif status == AIMING:
 		if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
 			cursor_pos = -1 * (mouse_position - position).clamp(-max_shot_distance, max_shot_distance) * reticle_distance_multiplier
 			aiming_reticle.position = cursor_pos
+			velocity = Vector2.ZERO
 		
 		# Release left mouse while AIMING to fire a SHOT
 		elif not Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
 			get_shot()
 			velocity = -1 * (mouse_position - position).clamp(-max_shot_distance, max_shot_distance) * shot_speed_multiplier
-	
-	# Stop moving if AIMING / STOPPED
-	elif status == AIMING or status == STOPPED:
-		velocity = Vector2.ZERO
 	
 	# Finally, do physics
 	move_and_slide()
@@ -112,7 +112,7 @@ func _on_shot_timer_timeout():
 
 # Turn pink on mouse hover
 func _on_mouse_entered():
-	if status != SHOT:
+	if status != SHOT and status != AIMING:
 		sprite_2d.texture = load("res://Assets/selectguy.png")
 	
 	# If holding SHIFT, allow painting multiple guys into AIMING mode with left click
