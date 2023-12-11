@@ -1,0 +1,64 @@
+[gd_scene load_steps=4 format=3 uid="uid://cxikkhe23apak"]
+
+[ext_resource type="Script" path="res://HUD/IngameHUD.gd" id="1_0326a"]
+[ext_resource type="FontFile" uid="uid://dxr7ykkapu5ln" path="res://Assets/Fonts/LilitaOne-Regular.ttf" id="1_g7ykx"]
+[ext_resource type="Texture2D" uid="uid://svhfc7nql2r1" path="res://Assets/hotterguy.png" id="2_bocjt"]
+
+[node name="IngameHUD" type="CanvasLayer"]
+script = ExtResource("1_0326a")
+
+[node name="GuyCounter" type="CanvasLayer" parent="."]
+
+[node name="GuySprite" type="Sprite2D" parent="GuyCounter"]
+top_level = true
+z_index = 2
+position = Vector2(70, 55)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("2_bocjt")
+
+[node name="Guys we have" type="Label" parent="GuyCounter"]
+z_index = 3
+offset_left = 103.0
+offset_top = 9.0
+offset_right = 176.0
+offset_bottom = 63.0
+theme_override_fonts/font = ExtResource("1_g7ykx")
+theme_override_font_sizes/font_size = 44
+text = "50"
+horizontal_alignment = 1
+vertical_alignment = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="Slash" type="Label" parent="GuyCounter"]
+z_index = 2
+offset_left = 149.0
+offset_top = 33.0
+offset_right = 189.0
+offset_bottom = 82.0
+rotation = 1.05885
+theme_override_fonts/font = ExtResource("1_g7ykx")
+theme_override_font_sizes/font_size = 40
+text = "/"
+horizontal_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Total guys" type="Label" parent="GuyCounter"]
+z_index = 2
+offset_left = 113.0
+offset_top = 65.0
+offset_right = 207.0
+offset_bottom = 114.0
+scale = Vector2(0.575099, 0.575099)
+theme_override_fonts/font = ExtResource("1_g7ykx")
+theme_override_font_sizes/font_size = 40
+text = "100"
+horizontal_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="BackgroundRect" type="ColorRect" parent="GuyCounter"]
+z_index = 1
+offset_left = 20.0
+offset_top = 12.0
+offset_right = 177.0
+offset_bottom = 99.0
+color = Color(0.054902, 0.054902, 0.054902, 0.690196)
