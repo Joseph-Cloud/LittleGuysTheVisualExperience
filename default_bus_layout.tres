@@ -1,0 +1,16 @@
+[gd_resource type="AudioBusLayout" load_steps=3 format=3 uid="uid://cb5sv1685mjo6"]
+
+[sub_resource type="AudioEffectDistortion" id="AudioEffectDistortion_kf7py"]
+resource_name = "Distortion"
+mode = 3
+pre_gain = 4.32
+drive = 1.0
+
+[sub_resource type="AudioEffectLowPassFilter" id="AudioEffectLowPassFilter_6t30u"]
+resource_name = "LowPassFilter"
+
+[resource]
+bus/0/effect/0/effect = SubResource("AudioEffectDistortion_kf7py")
+bus/0/effect/0/enabled = false
+bus/0/effect/1/effect = SubResource("AudioEffectLowPassFilter_6t30u")
+bus/0/effect/1/enabled = false
