@@ -20,8 +20,7 @@ func _ready():
 	num_of_guys_label.text = str(num_guys_to_eat)
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+func _process(_delta):
 	# If we've just now eaten enough guys, win!
 	if num_guys_eaten >= num_guys_to_eat and full == false:
 		full = true

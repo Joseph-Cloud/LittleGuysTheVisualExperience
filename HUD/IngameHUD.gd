@@ -7,7 +7,6 @@ extends CanvasLayer
 @onready var guy_counter = $GuyCounter
 @onready var guy_sprite = $GuyCounter/GuySprite
 @onready var guys_we_have = $"GuyCounter/Guys we have"
-@onready var slash = $GuyCounter/Slash
 @onready var total_guys = $"GuyCounter/Total guys"
 
 
@@ -25,6 +24,6 @@ func count_guys():
 	guys_we_have.text = str(len(counted_guys))
 
 
-func _process(delta):
+func _process(_delta):
 	wiggle_guy_sprite()
 	count_guys()

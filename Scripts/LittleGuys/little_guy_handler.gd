@@ -22,7 +22,7 @@ func _ready():
 		reconstitue_soft_body()
 	print(Global.DEBUG)
 
-func _process(delta):
+func _process(_delta):
 	if Global.DEBUG:
 		_check_for_debug_inputs()
 		if Global.SOFT_BODY_CONTROL:
@@ -59,7 +59,7 @@ func _on_hazards_body_entered(body):
 	if body.is_in_group("LittleGuy"):
 		body.queue_free()
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	if not Global.SOFT_BODY_CONTROL:
 		return
 	update_spring_forces()
